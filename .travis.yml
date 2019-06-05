@@ -1,0 +1,29 @@
+dist: bionic
+sudo: required
+
+cache:
+  directories:
+    - $HOME/bin
+
+before_install:
+  - mkdir -p ~/bin
+  - if [ ! -f ~/bin/aws-iam-authenticator ]; then curl -s -o ~/bin/aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/linux/amd64/aws-iam-authenticator; fi
+  - if [ ! -f ~/bin/kubectl ]; then curl -Ls -o ~/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl; fi
+  - chmod +x ~/bin/*
+  - export PATH="~/bin:$PATH"
+  - sudo snap install --channel stable --classic helm
+
+jobs:
+  include:
+    ###################   Dev cluster   ###################
+    - if: NOT type = pull_request AND branch = develop
+      env: CLUSTER="dev" CHART="istio" NAMESPACE="istio-system"
+
+    - if: NOT type = pull_request AND branch = master
+      env: CLUSTER="prod" CHART="blockscout" NAMESPACE="blockscout"
+
+script:
+  - if [ "$CLUSTER" = "dev" -a "$CHART" = "istio" ]; then VARS="global.domain=autonity.online" ;fi
+  - if [ "$CLUSTER" = "prod" -a "$CHART" = "istio" ]; then VARS="global.domain=autonity.io" ;fi
+
+  - ./scripts/helm_apply.sh $CLUSTER $CHART $NAMESPACE $VARS
