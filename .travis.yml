@@ -11,7 +11,7 @@ before_install:
   - if [ ! -f ~/bin/kubectl ]; then curl -Ls -o ~/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl; fi
   - chmod +x ~/bin/*
   - export PATH="~/bin:$PATH"
-  - pip3 install awscli --upgrade --user
+  - pip install awscli --upgrade --user
   - sudo snap install --channel stable --classic helm
 
 jobs:
