@@ -23,6 +23,7 @@ jobs:
         - echo "Test "$CHART
         - aws s3 ls charts-ose.clearmatics.com
 
+
     # Tag for deploy should be like autonity-network-0.0.1
     - if: type = push AND fork = false AND branch = master AND tag IS present AND tag =~ /^(\w|-)*[-]\d+[.]\d+[.]\d+$/
       env: CHART=$(echo ${TRAVIS_TAG} | sed -E s/-[0-9]+\.[0-9]+\.[0-9]+$//g) RELEASE_VERSION=$(echo ${TRAVIS_TAG} | grep -Eo [0-9]+\.[0-9]+\.[0-9]+$)
