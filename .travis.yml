@@ -17,7 +17,7 @@ before_install:
 jobs:
   include:
     # Source branch for PR should has name of chart
-    - if: type = pull_request AND fork = false AND head_repo = clearmatics/charts-ose AND branch = master commit_message !~ /WIP/
+    - if: type = pull_request AND fork = false AND head_repo = clearmatics/charts-ose AND commit_message !~ /WIP/
       env: CHART=${TRAVIS_PULL_REQUEST_BRANCH}
       script:
         - echo "Test "$CHART
