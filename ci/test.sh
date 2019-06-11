@@ -40,6 +40,10 @@ helm install -n build-${CHART_NAME} --namespace build-${CHART_NAME} ./
 
 # Test release
 helm test build-${CHART_NAME}
+if [ ! $? -eq 0 ]; then
+    echo "FAILED: Chart tests failed"
+    exit 1
+fi
 
 # Delete
 helm delete build-${CHART_NAME} --purge
