@@ -12,6 +12,8 @@ before_install:
   - export PATH="~/bin:$PATH"
   - pip install awscli --upgrade --user
   - sudo snap install --channel stable --classic helm
+  - mkdir -p ~/.aws
+  - printf "[default] \noutput = json \nregion = eu-west-1\n" > ~/.aws/config
 
 jobs:
   include:
