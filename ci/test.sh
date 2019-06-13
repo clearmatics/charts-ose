@@ -36,15 +36,18 @@ if [ ! $? -eq 0 ]; then
 fi
 
 # Deploy to the cluster
-helm install -n build-${CHART_NAME} --namespace build-${CHART_NAME} ./
+helm install -n build-${CHART_NAME}-${TRAVIS_BUILD_NUMBER} --namespace build-${CHART_NAME}-${TRAVIS_BUILD_NUMBER} ./
 
 # Test release
-helm test --timeout 120 build-${CHART_NAME}
+helm test --timeout 120 build-${CHART_NAME}-${TRAVIS_BUILD_NUMBER}
 if [ ! $? -eq 0 ]; then
+    # Delete
+    helm delete build-${CHART_NAME}-${TRAVIS_BUILD_NUMBER} --purge
+    kubectl delete namespace build-${CHART_NAME}-${TRAVIS_BUILD_NUMBER}
     echo "FAILED: Chart tests failed"
     exit 1
 fi
 
 # Delete
-helm delete build-${CHART_NAME} --purge
-kubectl delete namespace build-${CHART_NAME}
+helm delete build-${CHART_NAME}-${TRAVIS_BUILD_NUMBER} --purge
+kubectl delete namespace build-${CHART_NAME}-${TRAVIS_BUILD_NUMBER}
