@@ -39,7 +39,7 @@ fi
 helm install -n build-${CHART_NAME}-${TRAVIS_BUILD_NUMBER} --namespace build-${CHART_NAME}-${TRAVIS_BUILD_NUMBER} ./
 
 # Test release
-helm test --timeout 120 build-${CHART_NAME}-${TRAVIS_BUILD_NUMBER}
+helm test --timeout 300 build-${CHART_NAME}-${TRAVIS_BUILD_NUMBER}
 if [ ! $? -eq 0 ]; then
     # Delete
     helm delete build-${CHART_NAME}-${TRAVIS_BUILD_NUMBER} --purge
