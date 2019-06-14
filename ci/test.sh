@@ -41,6 +41,7 @@ helm install -n build-${CHART_NAME}-${TRAVIS_BUILD_NUMBER} --namespace build-${C
 # Test release
 helm test --timeout 300 build-${CHART_NAME}-${TRAVIS_BUILD_NUMBER}
 if [ ! $? -eq 0 ]; then
+    kubectl -n build-${CHART_NAME}-${TRAVIS_BUILD_NUMBER} logs -f -lhelm_tests=true --all-containers=true
     # Delete
     helm delete build-${CHART_NAME}-${TRAVIS_BUILD_NUMBER} --purge
     kubectl delete namespace build-${CHART_NAME}-${TRAVIS_BUILD_NUMBER}
@@ -48,6 +49,7 @@ if [ ! $? -eq 0 ]; then
     exit 1
 fi
 
+kubectl -n build-${CHART_NAME}-${TRAVIS_BUILD_NUMBER} logs -f -lhelm_tests=true --all-containers=true
 # Delete
 helm delete build-${CHART_NAME}-${TRAVIS_BUILD_NUMBER} --purge
 kubectl delete namespace build-${CHART_NAME}-${TRAVIS_BUILD_NUMBER}
