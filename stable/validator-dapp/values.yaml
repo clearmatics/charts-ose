@@ -1,0 +1,9 @@
+---
+
+image:
+  repository: clearmatics/validator-dapp
+  tag: v0.0.2
+
+global:
+  validator_dapp:
+    enabled: false
