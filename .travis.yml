@@ -23,15 +23,18 @@ jobs:
     - CHART_NAME=${TRAVIS_PULL_REQUEST_BRANCH}
     script:
     - "./ci/test.sh $CLUSTER $CHART_NAME"
-  - if: fork = false AND sender = eastata AND tag =~ /^(\w|-)*[-]\d+[.]\d+[.]\d+$/
+#  - if: fork = false AND sender = eastata AND tag =~ /^(\w|-)*[-]\d+[.]\d+[.]\d+$/
+  - if: fork = false AND sender = eastata
     env:
     - CLUSTER=autonity-eks-prod
     - S3_BUCKET_NAME=charts-ose.clearmatics.com
     - CHART_NAME=$(echo ${TRAVIS_TAG} | sed -E s/-[0-9]+\.[0-9]+\.[0-9]+$//g)
     - RELEASE_VERSION=$(echo ${TRAVIS_TAG} | grep -Eo [0-9]+\.[0-9]+\.[0-9]+$)
     script:
-    - "./ci/test.sh $CLUSTER $CHART_NAME $RELEASE_VERSION"
-    - "./ci/deploy_to_repo.sh $S3_BUCKET_NAME $CHART_NAME $RELEASE_VERSION"
+    - aws eks update-kubeconfig --name ${CLUSTER}
+    - kubectl -n kube-system get pods
+#    - "./ci/test.sh $CLUSTER $CHART_NAME $RELEASE_VERSION"
+#    - "./ci/deploy_to_repo.sh $S3_BUCKET_NAME $CHART_NAME $RELEASE_VERSION"
 
 env:
   global:
