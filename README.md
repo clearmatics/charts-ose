@@ -1,6 +1,5 @@
 # Clearmatics public helm charts repo
 
-Test
 # Contributing
 
 [Contributing rules](./CONTRIBUTING.md)
