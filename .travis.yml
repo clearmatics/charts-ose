@@ -3,6 +3,7 @@ sudo: required
 cache:
   directories:
   - "$HOME/bin"
+
 before_install:
 - mkdir -p ~/bin
 - if [ ! -f ~/bin/kubectl ]; then curl -Ls -o ~/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl
@@ -14,6 +15,7 @@ before_install:
 - sudo snap install --channel stable --classic helm
 - mkdir -p ~/.aws
 - printf "[default] \noutput = json \nregion = eu-west-1\n" > ~/.aws/config
+
 jobs:
   include:
   - if: type = pull_request AND fork = false AND head_repo = clearmatics/charts-ose
@@ -23,8 +25,8 @@ jobs:
     - CHART_NAME=${TRAVIS_PULL_REQUEST_BRANCH}
     script:
     - "./ci/test.sh $CLUSTER $CHART_NAME"
-#  - if: fork = false AND sender = eastata AND tag =~ /^(\w|-)*[-]\d+[.]\d+[.]\d+$/
-  - if: fork = false AND sender = eastata
+
+  - if: fork = false AND branch = master tag =~ /^(\w|-)*[-]\d+[.]\d+[.]\d+$/
     env:
     - CLUSTER=autonity-eks-prod
     - S3_BUCKET_NAME=charts-ose.clearmatics.com
@@ -33,8 +35,8 @@ jobs:
     script:
     - aws eks update-kubeconfig --name ${CLUSTER}
     - kubectl -n kube-system get pods
-#    - "./ci/test.sh $CLUSTER $CHART_NAME $RELEASE_VERSION"
-#    - "./ci/deploy_to_repo.sh $S3_BUCKET_NAME $CHART_NAME $RELEASE_VERSION"
+    - "./ci/test.sh $CLUSTER $CHART_NAME $RELEASE_VERSION"
+    - "./ci/deploy_to_repo.sh $S3_BUCKET_NAME $CHART_NAME $RELEASE_VERSION"
 
 env:
   global:
