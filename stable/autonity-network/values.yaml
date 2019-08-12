@@ -2,7 +2,7 @@
 
 imageAutonity:
   repository: clearmatics/autonity
-  tag: k8s-0.0.1
+  tag: v0.2.0-alpha
 
 imageAutonity_init:
   repository: clearmatics/autonity-init
@@ -28,7 +28,10 @@ testFramework:
 validators: 4
 observers: 1
 
-chainid: 2019
+chainid: 1488
+
+# Must be: 'istanbul' or 'tendermint'
+concensus: tendermint
 
 global:
   ethstats:
