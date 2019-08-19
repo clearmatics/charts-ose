@@ -8,8 +8,8 @@ data:
   nginx.conf: |-
     user  nginx;
     worker_processes  1;
+    error_log /dev/stderr warn;
 
-    error_log  /var/log/nginx/error.log warn;
     pid        /var/run/nginx.pid;
 
     events {
@@ -19,8 +19,11 @@ data:
     http {
         include       /etc/nginx/mime.types;
         default_type  application/octet-stream;
+        log_format post_logs escape=json '[$time_local] '
+                                 '"$remote_addr" "$status" "$request" '
+                                 '"req_time $request_time" $request_body' ;
+        access_log /dev/stdout post_logs;
 
-        sendfile        on;
         keepalive_timeout  65;
 
         upstream autonityrpc {
@@ -28,7 +31,27 @@ data:
         }
 
         server {
-            listen 80;
+            listen 8080;
+
+{{ if .Values.rpc_http_basic_auth_enabled }}
+            auth_basic           "Protected Ethereum client";
+            auth_basic_user_file /etc/nginx/htpasswd;
+{{ end }}
+
+            proxy_http_version         1.1;
+            proxy_connect_timeout      360;
+            proxy_read_timeout         360;
+            proxy_pass_header          Date;
+            proxy_pass_header          Server;
+            proxy_pass_header          Authorization;
+            proxy_set_header           Accept-Encoding "";
+            proxy_set_header           Host $host;
+            proxy_set_header           X-Real-IP $remote_addr;
+            proxy_set_header           X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_pass_request_headers on;
+            proxy_buffering            off;
+            proxy_set_header           Connection "Keep-Alive";
+            proxy_redirect             off;
 
             location / {
                 proxy_pass         http://autonityrpc;
@@ -36,3 +59,7 @@ data:
             }
         }
     }
+{{ if .Values.rpc_http_basic_auth_enabled }}
+  htpasswd: |- {{ range .Files.Lines "files/htpasswd" }}
+    {{ . }}{{ end }}
+{{ end }}
