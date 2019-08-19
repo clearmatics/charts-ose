@@ -1,10 +1,12 @@
 {{- $imageAutonity := .Values.imageAutonity -}}
 {{- $imageAutonity_init := .Values.imageAutonity_init -}}
 {{- $imagePrometheusExporter := .Values.image_prometheus_exporter -}}
+{{- $imageNginx := .Values.image_nginx -}}
 {{- $namespace := .Release.Namespace -}}
 
 {{- $ethstatsEnabled :=  .Values.global.ethstats.enabled -}}
 {{- $prometheusEnabled :=  .Values.global.prometheus.enabled -}}
+{{- $rpcHttpBasicAuthEnabled :=  .Values.rpc_http_basic_auth_enabled -}}
 
 {{ range $i, $e := until (atoi (printf "%d" (int64 .Values.validators))) }}
 ---
@@ -105,6 +107,17 @@ spec:
         - name: blockchain
           mountPath: /autonity/blockchain
 {{ end }}
+{{ if $rpcHttpBasicAuthEnabled }}
+      - name: nginx
+        image: {{ $imageNginx.repository }}:{{ $imageNginx.tag }}
+        ports:
+        - containerPort: 8080
+          name: https_rpc
+        volumeMounts:
+        - name: nginx-proxy-config
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+{{ end }}
       volumes:
         - name: blockchain
           emptyDir: {}
@@ -124,4 +137,9 @@ spec:
             items:
               - key: {{ $i }}.private_key
                 path: private_key
+{{ if $rpcHttpBasicAuthEnabled }}
+        - name: nginx-proxy-config
+          configMap:
+            name: nginx-conf
+{{ end }}
 {{- end}}
