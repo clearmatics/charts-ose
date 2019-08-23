@@ -1,0 +1,14 @@
+{
+  "name": "web3tests",
+  "version": "1.0.0",
+  "description": "Tests for ethereum wss",
+  "main": "index.js",
+  "dependencies": {
+    "web3": "1.2.1"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
