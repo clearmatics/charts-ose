@@ -6,7 +6,11 @@ FROM node:10.16.3-alpine
 # Run and connect to ssh-forvarded network
 #export NODE_EXTRA_CA_CERTS=[your CA certificate file path]
 
-# docker run -v $(pwd)"/files/tls.crt":"/tls.crt" --network="host" -ti -e NODE_EXTRA_CA_CERTS='/tls.crt' --add-host=test.autonity.online:127.0.0.1 web3tests
+#docker run -v $(pwd)"/files/tls.crt":"/tls.crt" --network="host" -ti \
+#-e NODE_EXTRA_CA_CERTS='/tls.crt' \
+#-e RPC_URL=wss://test.autonity.online:8546 \
+#-e RPC_AUTH=test:test \
+#--add-host=test.autonity.online:127.0.0.1 web3tests
 
 # build environment
 RUN apk add --virtual build-dependencies \

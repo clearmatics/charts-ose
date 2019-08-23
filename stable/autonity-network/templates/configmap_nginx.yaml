@@ -41,6 +41,11 @@ data:
 
         server {
             listen 8081;
+
+{{ if .Values.rpc_http_basic_auth_enabled }}
+            auth_basic           "Protected Ethereum client";
+            auth_basic_user_file /etc/nginx/htpasswd;
+{{ end }}
 {{ if .Values.rpc_https_enabled }}
             ssl on;
             ssl_certificate /etc/nginx/ssl/tls.crt;
