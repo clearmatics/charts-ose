@@ -3,5 +3,3 @@
 # negation (prefixed with !). Only one pattern per line.
 .DS_Store
 .git
-
-templates/tests/web3tests
