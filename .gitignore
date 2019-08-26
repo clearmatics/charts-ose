@@ -9,7 +9,12 @@
 *.iml
 
 telepresence.log
+
+# Secrets
 htpasswd
+*.crt
+*.key
+*.pem
 
 # Build
 node_modules
