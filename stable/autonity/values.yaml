@@ -1,0 +1,47 @@
+---
+
+imageAutonity:
+  repository: clearmatics/autonity
+  tag: dev-v0.1.5
+
+imageAutonity_init:
+  repository: clearmatics/autonity-init
+  tag: v0.0.8
+
+image_ibft_keys_generator:
+  repository: clearmatics/eth-keys-generator
+  tag: v0.0.3
+
+image_prometheus_exporter:
+  repository: statusteam/geth_exporter
+  tag: latest
+
+image_nginx:
+  repository: nginx
+  tag: 1.17-alpine
+
+testFramework:
+  image: "dduportal/bats"
+  tag: "0.4.0"
+
+# Number of validators and observers
+validators: 4
+observers: 1
+
+chainid: 1488
+
+# Must be: 'istanbul' or 'tendermint'
+concensus: tendermint
+
+rpc_http_basic_auth_enabled: false
+rpc_https_enabled: false
+
+files_dir: "files"
+
+global:
+  ethstats:
+    enabled: false
+  prometheus:
+    enabled: false
+  telepresence:
+    enabled: false
