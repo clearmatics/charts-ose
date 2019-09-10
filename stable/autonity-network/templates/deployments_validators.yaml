@@ -3,11 +3,13 @@
 {{- $imagePrometheusExporter := .Values.image_prometheus_exporter -}}
 {{- $imageNginx := .Values.image_nginx -}}
 {{- $namespace := .Release.Namespace -}}
+{{- $releasename := .Release.Name -}}
 
 {{- $ethstatsEnabled :=  .Values.global.ethstats.enabled -}}
 {{- $prometheusEnabled :=  .Values.global.prometheus.enabled -}}
 {{- $rpcHttpBasicAuthEnabled :=  .Values.rpc_http_basic_auth_enabled -}}
 {{- $rpcHttpsEnabled :=  .Values.rpc_https_enabled -}}
+{{- $persistentStorageEnabled :=  .Values.persistent_storage_enabled -}}
 
 {{ range $i, $e := until (atoi (printf "%d" (int64 .Values.validators))) }}
 ---
@@ -122,7 +124,12 @@ spec:
 {{ end }}
       volumes:
         - name: blockchain
+{{ if $persistentStorageEnabled }}
+          persistentVolumeClaim:
+            claimName: {{ $releasename }}-validator-{{ $i }}-blockchain
+{{ else }}
           emptyDir: {}
+{{ end}}
         - name: keys
           emptyDir:
             medium: Memory

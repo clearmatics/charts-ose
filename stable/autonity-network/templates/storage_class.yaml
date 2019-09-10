@@ -1,0 +1,35 @@
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: blockchain-{{ .Release.Name }}
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "false"
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+  fsType: ext4
+  encrypted: "true"
+#  zone: {{ .Values.zone }}
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+
+{{- $namespace := .Release.Namespace -}}
+{{- $releasename := .Release.Name -}}
+
+{{ range $i, $e := until (atoi (printf "%d" (int64 .Values.validators))) }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ $releasename }}-validator-{{ $i }}-blockchain
+  namespace: {{ $namespace }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: blockchain-{{ $releasename }}
+  resources:
+    requests:
+      storage: 20G
+
+{{- end}}

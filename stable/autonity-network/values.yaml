@@ -40,6 +40,8 @@ concensus: tendermint
 rpc_http_basic_auth_enabled: false
 rpc_https_enabled: false
 
+persistent_storage_enabled: false
+
 files_dir: "files"
 
 global:
