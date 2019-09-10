@@ -12,7 +12,10 @@ metadata:
     prometheus.io/path: "/debug/metrics/prometheus"
     prometheus.io/scrape: "true"
 spec:
-  type: ClusterIP
+  type: {{ .Values.validatorData.serviceType }}
+  {{ if .Values.validatorData.serviceType == "LoadBalancer" }}
+  loadBalancerIP: {{ .Values.validatorData.ips[$i] }}
+  {{ end }}
   ports:
     - protocol: TCP
       name: https-rpc
