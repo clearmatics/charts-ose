@@ -28,8 +28,8 @@ spec:
         image: {{ .Values.image_ibft_keys_generator.repository }}:{{ .Values.image_ibft_keys_generator.tag }}
         args:
           - "--validators"
-          - "{{ .Values.validators }}"
+          - "{{ .Values.validators.num }}"
           - "--observers"
-          - "{{ .Values.observers }}"
+          - "{{ .Values.observers.num }}"
       restartPolicy: Never
   backoffLimit: 0

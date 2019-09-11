@@ -9,6 +9,9 @@ home: https://www.autonity.io/
 sources:
 - https://github.com/clearmatics/autonity
 maintainers:
-- name: eastata
+- name:  eastata
   email: aleksandr.poliakov@clearmatics.com
+- name:  "scarby"
+  email: adam.scarborough@clearmatics.com
 appVersion: v0.1.6
+
