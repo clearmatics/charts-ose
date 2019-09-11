@@ -27,8 +27,11 @@ testFramework:
 # Number of validators and observers
 validators:
   num: 4
+  serviceType: "ClusterIP"
 observers:
   num: 1
+  serviceType: "ClusterIP"
+
 
 chainid: 1488
 
