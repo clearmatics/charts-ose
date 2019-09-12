@@ -39,4 +39,21 @@ spec:
       storage: 20G
 
 {{- end}}
+
+{{ range $i, $e := until (atoi (printf "%d" (int64 .Values.observers))) }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ $releasename }}-observer-{{ $i }}-blockchain
+  namespace: {{ $namespace }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: blockchain-{{ $releasename }}
+  resources:
+    requests:
+      storage: 20G
+
+{{- end}}
 {{- end}}
