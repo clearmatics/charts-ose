@@ -2,7 +2,7 @@
 
 imageAutonity:
   repository: clearmatics/autonity
-  tag: dev-v0.1.5
+  tag: dev-0.1.6-ethstats
 
 imageAutonity_init:
   repository: clearmatics/autonity-init
@@ -40,7 +40,8 @@ concensus: tendermint
 rpc_http_basic_auth_enabled: false
 rpc_https_enabled: false
 
-persistent_storage_enabled: false
+aws_persistent_storage_enabled: false
+gcp_persistent_storage_enabled: false
 
 files_dir: "files"
 
