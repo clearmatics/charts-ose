@@ -22,6 +22,7 @@ volumeBindingMode: Immediate
 
 {{- $namespace := .Release.Namespace -}}
 {{- $releasename := .Release.Name -}}
+{{- $blockchainPersistentVolumeSize := .Values.blockchain_persistent_volume_size -}}
 
 {{ range $i, $e := until (atoi (printf "%d" (int64 .Values.validators))) }}
 ---
@@ -36,7 +37,7 @@ spec:
   storageClassName: blockchain-{{ $releasename }}
   resources:
     requests:
-      storage: 20G
+      storage: {{ $blockchainPersistentVolumeSize }}
 
 {{- end}}
 
@@ -53,7 +54,7 @@ spec:
   storageClassName: blockchain-{{ $releasename }}
   resources:
     requests:
-      storage: 20G
+      storage: {{ $blockchainPersistentVolumeSize }}
 
 {{- end}}
 {{- end}}

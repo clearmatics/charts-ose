@@ -43,6 +43,8 @@ rpc_https_enabled: false
 aws_persistent_storage_enabled: false
 gcp_persistent_storage_enabled: false
 
+blockchain_persistent_volume_size: 20G
+
 files_dir: "files"
 
 global:

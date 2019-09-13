@@ -41,6 +41,9 @@ spec:
           mountPath: /autonity/sec-account-pwd
         - name: sec-peers
           mountPath: /autonity/sec-peers
+        args:
+          - "--debug"
+          - "true"
       containers:
       - name: autonity
         image: {{ $imageAutonity.repository }}:{{ $imageAutonity.tag }}
