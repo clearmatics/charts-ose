@@ -1,5 +1,4 @@
 {{- $namespace := .Release.Namespace -}}
-{{- $prometheusEnabled :=  .Values.global.prometheus.enabled -}}
 
 {{ range $i, $e := until (atoi (printf "%d" (int64 .Values.validators))) }}
 ---

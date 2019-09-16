@@ -1,6 +1,5 @@
 {{- $imageAutonity := .Values.imageAutonity -}}
 {{- $imageAutonity_init := .Values.imageAutonity_init -}}
-{{- $imagePrometheusExporter := .Values.image_prometheus_exporter -}}
 {{- $imageNginx := .Values.image_nginx -}}
 {{- $namespace := .Release.Namespace -}}
 {{- $releasename := .Release.Name -}}
