@@ -9,6 +9,7 @@ metadata:
   namespace: {{ $namespace }}
   annotations:
     prometheus.io/port: "6060"
+    prometheus.io/path: "/debug/metrics/prometheus"
     prometheus.io/scrape: "true"
 spec:
   type: ClusterIP
