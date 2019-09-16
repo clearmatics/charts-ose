@@ -74,6 +74,7 @@ spec:
           - "--wsorigins"
           - "*"
           - "--metrics"
+          - "--pprof"
           - "--mine"
           - "--minerthreads"
           - "1"
@@ -97,17 +98,6 @@ spec:
           mountPath: /autonity/keys
         - name: sec-peers
           mountPath: /autonity/sec-peers
-{{ if $prometheusEnabled }}
-      - name: prometheus-exporter
-        image: {{ $imagePrometheusExporter.repository }}:{{ $imagePrometheusExporter.tag }}
-        ports:
-        - containerPort: 9200
-          name: metrics
-        command: ['geth_exporter', '-ipc', '/autonity/blockchain/autonity.ipc']
-        volumeMounts:
-        - name: blockchain
-          mountPath: /autonity/blockchain
-{{ end }}
       - name: nginx
         image: {{ $imageNginx.repository }}:{{ $imageNginx.tag }}
         ports:
