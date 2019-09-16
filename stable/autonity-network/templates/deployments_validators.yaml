@@ -73,6 +73,8 @@ spec:
           - "*"
           - "--metrics"
           - "--pprof"
+          - "--pprofaddr"
+          - "0.0.0.0"
           - "--mine"
           - "--minerthreads"
           - "1"
