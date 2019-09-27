@@ -8,7 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.5.0] - 2019-09-27
 ### Updated
-- autonity to `v0.2.0`
+- Up `autonity` to `v0.2.0-rc`
+- New variables for `genesis.json`is avalable: `stake`, `mingasprice`, `gaslimit`, `balance`
+-  `istanbul` concensus is deprecated
 
 ## [1.4.0] - 2019-09-26
 ### Add
