@@ -6,7 +6,7 @@ kubectl -n {{ .Release.Namespace }} get secrets account-pwd -o 'go-template={{ "
 # Get private key of first observer (id == 0)
 kubectl -n {{ .Release.Namespace }} get secrets observers -o 'go-template={{ "{{" }}index .data "0.private_key"{{ "}}" }}' | base64 --decode; echo ""
 
-# Get private key of Gvernance Operator
+# Get private key of Governance Operator
 kubectl -n {{ .Release.Namespace }} get secrets operator-governance -o 'go-template={{ "{{" }}index .data "0.private_key"{{ "}}" }}' | base64 --decode; echo ""
 
 # Get private key of Treasury Operator
