@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2019-09-27
+### Updated
+- autonity to `v0.2.0`
+
 ## [1.4.0] - 2019-09-26
 ### Add
 - Add toleration for role: validators taint on validator nodes
