@@ -54,4 +54,4 @@ Actor: Each validator
 1. Check if new blocks mined
 1. Get from `autonity RPC` list of validators in a smart contract and check your own `enodeid`
     1. if it does not match - make alarm?
-    1. Fi it matched - confirm that network was setup correctly
+    1. if it matched - confirm that network was setup correctly
