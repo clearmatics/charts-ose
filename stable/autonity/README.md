@@ -25,6 +25,7 @@ Actor: Operator
     
     Requirements:
     1. Organisation should be owner of their domain
+    1. Public IP address should be static and unic for `fqdn`
     1. DNSSEC for domain should be enabled
 1. Operator also sent `genesis` options for the first block like:
     1. Network_ID
