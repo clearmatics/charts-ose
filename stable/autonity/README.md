@@ -56,7 +56,7 @@ Actor: Each validator node
 1. Get from `autonity RPC` list of validator nodes in a smart contract and check their own `enodeid`
     1. if it does not match - make alarm?
     1. if it matched - confirm that network was setup correctly
-1. Get options from network and check that all of this matched with local genesis.json and no any addition 
+1. Get options from the first mined and confirmed block and check that all of this matched with local genesis.json and no any addition 
 
 ## Data storage
 
