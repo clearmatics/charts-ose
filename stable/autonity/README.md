@@ -25,7 +25,7 @@ Actor: Operator
     
     Requirements:
     1. Organisation should be owner of their domain
-    1. Public IP address should be static and unique for `fqdn`
+    1. Public fixed IP. Address should be static and unique for `fqdn`
     1. DNSSEC for domain should be enabled
 1. Operator also sent `genesis` options for the first block like:
     1. Network_ID
@@ -36,7 +36,7 @@ Actor: Operator
 ### Phase 2
 Actor: Each validator node
 1. Generate  private and public keys for validator node
-1. Allocate public IP and port for p2p connections
+1. Allocate public fixed static IP and port for p2p connections (only one IP for one `validator-node`)
 1. Push this data to own DNS records that was defined at `Phase 1`
 
     | type | name | value | TTL |
