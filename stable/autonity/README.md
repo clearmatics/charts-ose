@@ -5,7 +5,7 @@
 
 ## Introduction
 
-This chart deploys a infrustructure for `validator` that is a member of  **private** [Autonity](https://www.autonity.io/) network onto a [Kubernetes](http://kubernetes.io) 
+This chart deploys a infrastructure for `validator` that is a member of  **private** [Autonity](https://www.autonity.io/) network onto a [Kubernetes](http://kubernetes.io) 
 cluster using the [Helm](https://helm.sh) package manager.   
 Autonity is a generalization of the Ethereum protocol based on a fork of go-ethereum.   
 [Autonity Documentation](https://docs.autonity.io)
