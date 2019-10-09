@@ -40,9 +40,8 @@ Actor: Each validator node
 
     | type | name | value | TTL |
     |------|-------------------|-------------|---|
-    | A    | validator1.@      | 203.0.113.1 | 24h |
-    | TXT  | key_validator1.@  |ad840ab412c026b098291f5ab56f923214469c61d4a8be41334c9a00e2dc84a8ff9a5035b3683184ea79902436454a7a00e966de45ff46dbd118e426edd4b2d0| 1h |
-    | TXT  | port_validator1.@ |30303        | 24h |
+    | A    | validator1.example.com      | 203.0.113.1 | 1 min |
+    | TXT  | _autonity.validator1.example.com  |p=30303\; k=ad840ab412c026b098291f5ab56f923214469c61d4a8be41334c9a00e2dc84a8ff9a5035b3683184ea79902436454a7a00e966de45ff46dbd118e426edd4b2d0| 1 min |
 
 ### Phase 3
 Actor: Each validator node
@@ -65,24 +64,11 @@ Actor: Each validator node
 1. configmap `validator`, contain:
    1. `address` - address
    1. `pub_key` - public key
-1. Kubernetes [EmptyDir](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir) (default) for local blockchain of `validators` and `observers`    
+1. Kubernetes [EmptyDir](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir) (default) for local blockchain 
+of `validators` and `observers`    
    1. `aws_persistent_storage_enabled: true` enable AWS persistent storage for `blockchain`
    1. `gcp_persistent_storage_enabled: true` enable GCP persistent storage for `blockchain`
-1. configmap `peer-list` contain list of peers, received from Operator:
-   1. `list` 
-   ```json
-    {
-      "org1": {
-        "validators": [
-          {"fqdn": "validator1.ogr1.com", "stake": 10000},
-          {"fqdn": "validator2.ogr1.com", "stake": 10000}
-        ]
-      },
-      "org2": {
-        "validators": [
-          {"fqdn": "val2.ogr2.net", "stake": 10000}
-        ]
-      }
-    }
-   ```
-1. configmap `genesis,json`
+1. configmap `genesis` contain list of peers, genesis options received from Operator:
+   1. `genesis.json`  format [Autonity genesis.json](https://github.com/clearmatics/autonity/wiki/Genesis-File-Configuration) 
+   with `fqdn://` scheme support [issue #310](https://github.com/clearmatics/autonity/issues/310) 
+
