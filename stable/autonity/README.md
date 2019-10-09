@@ -18,6 +18,7 @@ Actor: Operator
     | Organisation name | dns name |
     |-------------------|----------|
     | org1  | validator1.ogr1.com   |
+    | org1  | validator2.ogr1.com   |
     | org2  | val2.ogr2.net   |
     | org3  | validator3.ogr3.io    |
     | org4  | othername4.ogr4.co.uk |
@@ -33,7 +34,7 @@ Actor: Operator
 
 ### Phase 2
 Actor: Each validator
-1. Generate validator private and public keys
+1. Generate  private and public keys for validator node
 1. Allocate public IP and port for p2p connections
 1. Push this data to own DNS records that was defined at `Phase 1`
 
@@ -52,6 +53,6 @@ Actor: Each validator
 ### Phase 4
 Actor: Each validator
 1. Check if new blocks mined
-1. Get from `autonity RPC` list of validators in a smart contract and check your own `enodeid`
+1. Get from `autonity RPC` list of validator nodes in a smart contract and check your own `enodeid`
     1. if it does not match - make alarm?
     1. if it matched - confirm that network was setup correctly

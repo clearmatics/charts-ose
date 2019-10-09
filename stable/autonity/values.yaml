@@ -31,7 +31,7 @@ observers: 1
 chainid: 1488
 
 # Must be: 'istanbul' or 'tendermint'
-concensus: tendermint
+consensus: tendermint
 
 rpc_http_basic_auth_enabled: false
 rpc_https_enabled: false
