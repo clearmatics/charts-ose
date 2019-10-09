@@ -5,7 +5,7 @@
 
 ## Introduction
 
-This chart deploys a infrastructure for `validator` that is a member of  **private** [Autonity](https://www.autonity.io/) network onto a [Kubernetes](http://kubernetes.io) 
+This chart deploys a infrastructure for `validator node` that is a member of  **private** [Autonity](https://www.autonity.io/) network onto a [Kubernetes](http://kubernetes.io) 
 cluster using the [Helm](https://helm.sh) package manager.   
 Autonity is a generalization of the Ethereum protocol based on a fork of go-ethereum.   
 [Autonity Documentation](https://docs.autonity.io)
@@ -27,13 +27,13 @@ Actor: Operator
     1. Organisation should be owner of their domain
     1. DNSSEC for domain should be enabled
 1. Operator also sent `genesis` options for the first block like:
-    1. network_ID
+    1. Network_ID
     1. Chain_ID
-    1. max gas price
+    1. Max gas price
     1. etc
 
 ### Phase 2
-Actor: Each validator
+Actor: Each validator node
 1. Generate  private and public keys for validator node
 1. Allocate public IP and port for p2p connections
 1. Push this data to own DNS records that was defined at `Phase 1`
@@ -45,14 +45,33 @@ Actor: Each validator
     | TXT  | port_validator1.@ |30303        | 24h |
 
 ### Phase 3
-Actor: Each validator
+Actor: Each validator node
 1. Check each dns records from list at `Phase 1` every `X` min
 1. When all records was resolved, generate `genesis.json` and execute `autonity init`
 1. Execute service `autonity`
 
 ### Phase 4
-Actor: Each validator
-1. Check if new blocks mined
-1. Get from `autonity RPC` list of validator nodes in a smart contract and check your own `enodeid`
+Actor: Each validator node
+1. Check RPC until new blocks mined
+1. Get from `autonity RPC` list of validator nodes in a smart contract and check their own `enodeid`
     1. if it does not match - make alarm?
     1. if it matched - confirm that network was setup correctly
+1. Get options from network and check that all of this matched with local genesis.json and no any addition 
+
+## Data storage
+
+1. secret `validator` contain:
+   1. `private_key` - private key for account
+1. configmap `validator`, contain:
+   1. `address` - address
+   1. `pub_key` - public key
+1. Kubernetes [EmptyDir](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir) (default) for local blockchain of `validators` and `observers`    
+   1. `aws_persistent_storage_enabled: true` enable AWS persistent storage for `blockchain`
+   1. `gcp_persistent_storage_enabled: true` enable GCP persistent storage for `blockchain`
+1. configmap `peer-list` contain list of peers, received from Operator:
+   1. `list` 
+   ```json
+   {
+   }
+   ```
+1. configmap `genesis,json`
