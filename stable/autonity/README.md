@@ -71,7 +71,18 @@ Actor: Each validator node
 1. configmap `peer-list` contain list of peers, received from Operator:
    1. `list` 
    ```json
-   {
-   }
+    {
+      "org1": {
+        "validators": [
+          {"fqdn": "validator1.ogr1.com", "stake": 10000},
+          {"fqdn": "validator2.ogr1.com", "stake": 10000}
+        ]
+      },
+      "org2": {
+        "validators": [
+          {"fqdn": "val2.ogr2.net", "stake": 10000}
+        ]
+      }
+    }
    ```
 1. configmap `genesis,json`
