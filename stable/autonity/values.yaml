@@ -28,7 +28,6 @@ testFramework:
 validators: 4
 observers: 1
 
-chainid: 1488
 
 # Must be: 'istanbul' or 'tendermint'
 consensus: tendermint
@@ -45,3 +44,58 @@ global:
     enabled: false
   telepresence:
     enabled: false
+
+# Options for genesis block. Must be the same for all validator nodes (optional value only for new networks)
+genesis:
+  config:
+    homesteadBlock: 0
+    eip150Block: 0
+    eip150Hash: '0x0000000000000000000000000000000000000000000000000000000000000000'
+    eip155Block: 0
+    eip158Block: 0
+    petersburgBlock: 0
+    constantinopleBlock: 0
+    byzantiumBlock: 0
+    tendermint:
+      policy: 0
+      block-period: 1
+    chainId: 1489
+    autonityContract:
+      deployer: '0x0000000000000000000000000000000000000002'
+      bytecode: ''
+      abi: ''
+      minGasPrice: 10000000000000
+      governanceOperator: '0x4982763697d8e806b24eD52078B29870490Ee126'
+      users:
+      - enode: enode://dc14023c8ba481466158b870819ed8c412d1be6b2df9f9d4973f209c33dee252c4a279aff05968a56c8baf8ce88551c8e7777d717ec8e16c20a3f73b38c49fd0@validator-5-example.com.:30303
+        type: validator
+        stake: 50000
+      - enode: enode://ad840ab412c026b098291f5ab56f923214469c61d4a8be41334c9a00e2dc84a8ff9a5035b3683184ea79902436454a7a00e966de45ff46dbd118e426edd4b2d0@validator-2-example.com.:30303
+        type: validator
+        stake: 50000
+      - enode: enode://447ed922ec6dd8b46bdc8b0dd5ebc93bd3056011d508282cd8efce44727aa1c285d93363ef9da3fc22661d3d406779905a430f1f904f712337da75da89b54c28@validator-1-example.com.:30303
+        type: validator
+        stake: 50000
+      - enode: enode://9ea1968d169ca99ccf4c98ababb5526d48daf30b7e729d207e731aa8097c6bbd675a7642f440e139fbadefd5387a733eb7c6e4e7a8d44d94299f8afb6e414486@validator-3-example.com.:30303
+        type: validator
+        stake: 50000
+      - enode: enode://d1a113f534beeb1dd10bb1796581b5439830898a2afd77f653d407e9721a8c8081dcacb5084ec110795022a9b62324947a25b45015dd4ce315a8954bb395cf82@validator-4-example.com.:30303
+        type: validator
+        stake: 50000
+      - enode: enode://45ce3f8d6235cd31c073416fad5ed21a0ec6d8bd2ceba44087a0e15541d7c6c1e948de67945a623bd10313619b12225305f457eab4bf715652ffd00dd5b4ca30@validator-0-example.com.:30303
+        type: validator
+        stake: 50000
+      - enode: enode://d1e03ac38d57fa17056ea332541e02d04474bb91c49df1126724182c754b74900369fdda9126d9d97d26d619d928d9389358209d202c9853a86563d7a0958228@observer-0-example.com.:30303
+        type: participant
+  nonce: '0x0'
+  timestamp: '0x0'
+  gasLimit: '0x5F5E100'
+  difficulty: '0x1'
+  coinbase: '0x0000000000000000000000000000000000000000'
+  number: '0x0'
+  gasUsed: '0x0'
+  parentHash: '0x0000000000000000000000000000000000000000000000000000000000000000'
+  mixHash: '0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365'
+  alloc:
+    '0x71f3998Cb779B612b1B88aF3A078828C87c543DF':
+      balance: '0x200000000000000000000000000000000000000000000000000000000000000'
