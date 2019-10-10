@@ -104,7 +104,7 @@ spec:
             sizeLimit: "1M"
         - name: cm-genesis
           configMap:
-            name: genesis-template
+            name: genesis
         - name: sec-account-pwd
           secret:
             secretName: validator-0
