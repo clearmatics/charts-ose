@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: init-job01-ibft-keys-generator
+  name: init-job01-eth-keys-generator
   namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/managed-by: {{.Release.Service | quote }}
@@ -24,12 +24,10 @@ spec:
     spec:
       serviceAccountName: autonity-initiator
       containers:
-      - name: init-job01-ibft-keys-generator
-        image: {{ .Values.image_ibft_keys_generator.repository }}:{{ .Values.image_ibft_keys_generator.tag }}
+      - name: init-job01-eth-keys-generator
+        image: {{ .Values.image_eth_keys_generator.repository }}:{{ .Values.image_eth_keys_generator.tag }}
         args:
-          - "--validators"
-          - "{{ .Values.validators }}"
-          - "--observers"
-          - "{{ .Values.observers }}"
+          - "--name"
+          - "validator-0"
       restartPolicy: Never
   backoffLimit: 0

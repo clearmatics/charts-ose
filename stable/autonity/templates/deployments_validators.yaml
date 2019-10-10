@@ -1,32 +1,20 @@
-{{- $imageAutonity := .Values.imageAutonity -}}
-{{- $imageAutonity_init := .Values.imageAutonity_init -}}
-{{- $imagePrometheusExporter := .Values.image_prometheus_exporter -}}
-{{- $imageNginx := .Values.image_nginx -}}
-{{- $namespace := .Release.Namespace -}}
-
-{{- $ethstatsEnabled :=  .Values.global.ethstats.enabled -}}
-{{- $prometheusEnabled :=  .Values.global.prometheus.enabled -}}
-{{- $rpcHttpBasicAuthEnabled :=  .Values.rpc_http_basic_auth_enabled -}}
-{{- $rpcHttpsEnabled :=  .Values.rpc_https_enabled -}}
-
-{{ range $i, $e := until (atoi (printf "%d" (int64 .Values.validators))) }}
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: validator-{{ $i }}
-  namespace: {{ $namespace }}
+  name: validator-0
+  namespace: {{ .Release.Namespace }}
 spec:
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: validator-{{ $i }}
+        app: validator-0
     spec:
       initContainers:
       - name: init
-        image: {{ $imageAutonity_init.repository }}:{{ $imageAutonity_init.tag }}
+        image: {{ .Values.imageAutonity_init.repository }}:{{ .Values.imageAutonity_init.tag }}
         volumeMounts:
         - name: blockchain
           mountPath: /autonity/blockchain
@@ -38,9 +26,12 @@ spec:
           mountPath: /autonity/sec-account-pwd
         - name: sec-peers
           mountPath: /autonity/sec-peers
+        args:
+          - "--debug"
+          - "true"
       containers:
       - name: autonity
-        image: {{ $imageAutonity.repository }}:{{ $imageAutonity.tag }}
+        image: {{ .Values.imageAutonity.repository }}:{{ .Values.imageAutonity.tag }}
         ports:
         - containerPort: 30303
           name: p2p
@@ -68,22 +59,17 @@ spec:
           - "--wsorigins"
           - "*"
           - "--metrics"
+          - "--pprof"
+          - "--pprofaddr"
+          - "0.0.0.0"
+          - "--networkid"
+          - "{{ .Values.networkid }}"
           - "--mine"
           - "--minerthreads"
           - "1"
           - "--debug"
           - "--verbosity"
           - "4"
-{{ if $ethstatsEnabled }}
-          - "--ethstats"
-          - "validator-{{ $i }}:$(ETHSTATS_SECRET)@ethstats.{{ $namespace }}"
-        env:
-        - name: ETHSTATS_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: ethstats
-              key: WS_SECRET
-{{ end }}
         volumeMounts:
         - name: blockchain
           mountPath: /autonity/blockchain
@@ -91,19 +77,8 @@ spec:
           mountPath: /autonity/keys
         - name: sec-peers
           mountPath: /autonity/sec-peers
-{{ if $prometheusEnabled }}
-      - name: prometheus-exporter
-        image: {{ $imagePrometheusExporter.repository }}:{{ $imagePrometheusExporter.tag }}
-        ports:
-        - containerPort: 9200
-          name: metrics
-        command: ['geth_exporter', '-ipc', '/autonity/blockchain/autonity.ipc']
-        volumeMounts:
-        - name: blockchain
-          mountPath: /autonity/blockchain
-{{ end }}
       - name: nginx
-        image: {{ $imageNginx.repository }}:{{ $imageNginx.tag }}
+        image: {{ .Values.image_nginx.repository }}:{{ .Values.image_nginx.tag }}
         ports:
         - containerPort: 8080
           name: https-rpc
@@ -111,12 +86,12 @@ spec:
         - name: nginx-proxy-config
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf
-{{ if $rpcHttpBasicAuthEnabled }}
+{{ if .Values.rpc_http_basic_auth_enabled }}
         - name: nginx-proxy-config
           mountPath: /etc/nginx/htpasswd
           subPath: htpasswd
 {{ end }}
-{{ if $rpcHttpsEnabled }}
+{{ if .Values.rpc_https_enabled }}
         - name: nginx-proxy-ssl
           mountPath: /etc/nginx/ssl
 {{ end }}
@@ -129,22 +104,25 @@ spec:
             sizeLimit: "1M"
         - name: cm-genesis
           configMap:
-            name: genesis
+            name: genesis-template
         - name: sec-account-pwd
           secret:
-            secretName: account-pwd
+            secretName: validator-0
+            items:
+              - key: password
+                path: account.pwd
         - name: sec-peers
           secret:
-            secretName: validators
+            secretName: validator-0
             items:
-              - key: {{ $i }}.private_key
+              - key: private_key
                 path: private_key
         - name: nginx-proxy-config
           configMap:
             name: nginx-conf
-{{ if $rpcHttpsEnabled }}
+
+{{ if .Values.rpc_https_enabled }}
         - name: nginx-proxy-ssl
           secret:
             secretName: autonity-https
 {{ end }}
-{{- end}}
