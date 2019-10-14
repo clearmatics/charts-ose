@@ -14,7 +14,7 @@ image_eth_keys_generator:
 
 image_init_ceremony:
   repository: clearmatics/init-ceremony
-  tag: v0.0.1
+  tag: v0.0.2
 
 image_nginx:
   repository: nginx
@@ -67,21 +67,20 @@ genesis:
       minGasPrice: 10000000000000
       governanceOperator: '0x4982763697d8e806b24eD52078B29870490Ee126'
       users:
-      - enode: enode://dc14023c8ba481466158b870819ed8c412d1be6b2df9f9d4973f209c33dee252c4a279aff05968a56c8baf8ce88551c8e7777d717ec8e16c20a3f73b38c49fd0@validator-5-example.com.:30303
+      - enode: fqdn://validator1.autonity.online
         type: validator
         stake: 50000
-      - enode: enode://ad840ab412c026b098291f5ab56f923214469c61d4a8be41334c9a00e2dc84a8ff9a5035b3683184ea79902436454a7a00e966de45ff46dbd118e426edd4b2d0@validator-2-example.com.:30303
+      - enode: fqdn://validator2.autonity.online
         type: validator
         stake: 50000
-      - enode: enode://447ed922ec6dd8b46bdc8b0dd5ebc93bd3056011d508282cd8efce44727aa1c285d93363ef9da3fc22661d3d406779905a430f1f904f712337da75da89b54c28@validator-1-example.com.:30303
+      - enode: fqdn://validator3.autonity.online
         type: validator
         stake: 50000
-      - enode: enode://9ea1968d169ca99ccf4c98ababb5526d48daf30b7e729d207e731aa8097c6bbd675a7642f440e139fbadefd5387a733eb7c6e4e7a8d44d94299f8afb6e414486@validator-3-example.com.:30303
+      - enode: fqdn://validator4.autonity.online
         type: validator
         stake: 50000
-      - enode: enode://d1a113f534beeb1dd10bb1796581b5439830898a2afd77f653d407e9721a8c8081dcacb5084ec110795022a9b62324947a25b45015dd4ce315a8954bb395cf82@validator-4-example.com.:30303
-        type: validator
-        stake: 50000
+      - enode: fqdn://validator1.autonity.online
+        type: participant
       - enode: enode://45ce3f8d6235cd31c073416fad5ed21a0ec6d8bd2ceba44087a0e15541d7c6c1e948de67945a623bd10313619b12225305f457eab4bf715652ffd00dd5b4ca30@validator-0-example.com.:30303
         type: validator
         stake: 50000
