@@ -12,6 +12,10 @@ image_eth_keys_generator:
   repository: clearmatics/eth-keys-generator
   tag: v0.1.0
 
+image_init_ceremony:
+  repository: clearmatics/init-ceremony
+  tag: v0.0.1
+
 image_nginx:
   repository: nginx
   tag: 1.17-alpine
