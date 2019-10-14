@@ -73,3 +73,5 @@ of `validators` and `observers`
    1. `genesis.json`  format [Autonity genesis.json](https://github.com/clearmatics/autonity/wiki/Genesis-File-Configuration) 
    with `fqdn://` scheme support [issue #310](https://github.com/clearmatics/autonity/issues/310) 
 
+## TODO 
+* fix `autononity-init`. Should wait until `genesis.json` will available 

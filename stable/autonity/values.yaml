@@ -67,25 +67,18 @@ genesis:
       minGasPrice: 10000000000000
       governanceOperator: '0x4982763697d8e806b24eD52078B29870490Ee126'
       users:
-      - enode: fqdn://validator1.autonity.online
+      - enode: fqdn://val-1.autonity.online
         type: validator
         stake: 50000
-      - enode: fqdn://validator2.autonity.online
+      - enode: fqdn://val-2.autonity.online
         type: validator
         stake: 50000
-      - enode: fqdn://validator3.autonity.online
+      - enode: fqdn://val-3.autonity.online
         type: validator
         stake: 50000
-      - enode: fqdn://validator4.autonity.online
+      - enode: fqdn://val-4.autonity.online
         type: validator
         stake: 50000
-      - enode: fqdn://validator1.autonity.online
-        type: participant
-      - enode: enode://45ce3f8d6235cd31c073416fad5ed21a0ec6d8bd2ceba44087a0e15541d7c6c1e948de67945a623bd10313619b12225305f457eab4bf715652ffd00dd5b4ca30@validator-0-example.com.:30303
-        type: validator
-        stake: 50000
-      - enode: enode://d1e03ac38d57fa17056ea332541e02d04474bb91c49df1126724182c754b74900369fdda9126d9d97d26d619d928d9389358209d202c9853a86563d7a0958228@observer-0-example.com.:30303
-        type: participant
   nonce: '0x0'
   timestamp: '0x0'
   gasLimit: '0x5F5E100'
