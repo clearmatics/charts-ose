@@ -50,7 +50,7 @@ Autonity is a generalization of the Ethereum protocol based on a fork of go-ethe
 
 - You can change number of validators or observers using helm cli-options like this:
    ```bash
-   helm install -n autonity-demo ./ --set autonity-network.validators=6,autonity-network.observers=2
+   helm install -n autonity-demo ./ --set autonity-network.validators.num=6,autonity-network.observers.num=2
    ```
 - You can enable optional subcharts like:
    ```bash
@@ -71,4 +71,15 @@ curl -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","metho
 ## Delete
 ```bash
 helm delete autonity-demo --purge
+```
+
+## Extended values configs
+
+[values_gke_persistent_storage.yaml](./values_gke_persistent_storage.yaml) will install to GKE with:
+- persistent storage for autonity validators and observers
+- persistent storage for prometheus
+- persistent storage for grafana
+
+```shell script
+helm install charts-ose.clearmatics.com/autonity-demo -f https://raw.githubusercontent.com/clearmatics/charts-ose/master/stable/autonity-demo/values_gke_persistent_storage.yaml
 ```

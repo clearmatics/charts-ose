@@ -1,3 +1,12 @@
+{{- $validatorAddress := .Values.validators.ips -}}
+{{- $observerAddress := .Values.observers.ips -}}
+{{- if .Values.observers.names -}}
+{{-   $observerAddress = .Values.observers.names -}}
+{{- end -}}
+{{- if .Values.validators.names -}}
+{{-   $validatorAddress = .Values.validators.names -}}
+{{- end -}}
+
 ---
 apiVersion: batch/v1
 kind: Job
@@ -24,6 +33,7 @@ spec:
     spec:
       serviceAccountName: autonity-initiator
       restartPolicy: Never
+      
       containers:
       - name: init-job02-ibft-genesis-configurator
         image: {{ .Values.image_ibft_genesis_configurator.repository }}:{{ .Values.image_ibft_genesis_configurator.tag }}
@@ -32,8 +42,30 @@ spec:
             mountPath: /autonity/validators
           - name: observers
             mountPath: /autonity/observers
+          - name: operator-governance
+            mountPath: /autonity/operator-governance
+          - name: operator-treasury
+            mountPath: /autonity/operator-treasury
           - name: genesis-template
             mountPath: /autonity
+        env:
+        {{- if $validatorAddress }}
+        - name: VALIDATOR_IPS
+          value: "{{ range $i, $e := until (atoi (printf "%d" (int64 .Values.validators.num))) }}{{index $validatorAddress $i }} {{ end }}" 
+        {{- end }}
+        {{- if $observerAddress }}
+        - name: OBSERVER_IPS
+          value: "{{ range $i, $e := until (atoi (printf "%d" (int64 .Values.observers.num))) }}{{index $observerAddress $i }} {{ end }}"
+        {{- end }}
+        args:
+          - "--stake"
+          - "{{ .Values.stake }}"
+          - "--mingasprice"
+          - "{{ .Values.mingasprice }}"
+          - "--gaslimit"
+          - "{{ .Values.gaslimit }}"
+          - "--balance"
+          - "{{ .Values.balance }}"
       volumes:
         - name: validators
           configMap:
@@ -41,6 +73,12 @@ spec:
         - name: observers
           configMap:
             name: observers
+        - name: operator-governance
+          configMap:
+            name: operator-governance
+        - name: operator-treasury
+          configMap:
+            name: operator-treasury
         - name: genesis-template
           configMap:
             name: genesis-template
