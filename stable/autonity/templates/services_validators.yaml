@@ -33,11 +33,16 @@ metadata:
   name: p2p-validator-0
   namespace: {{ .Release.Namespace }}
 spec:
-  type: LoadBalancer
   ports:
     - protocol: TCP
       name: p2p
       port: 30303
+{{ if .Values.aws }}
+      nodePort:  30303
+  type: NodePort
+{{ else }}
       targetPort:  30303
+  type: LoadBalancer
+{{ end }}
   selector:
     app: validator-0
