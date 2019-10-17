@@ -1,11 +1,31 @@
 # Workshop
 
-Setup 4 independent environments for `validators Nodes`: 2 on `GKE` and 2 in `Amazon EKS`
+Setup `4` independent environments for `validators Nodes`: `2` on Google Kubernetes Engine (`GKE`) and `2` in Amazon `EKS`
 
 
-## AWS EKS
+| Actor | env | dns name for Autonity node `fqdn` name| 
+|-------|-----|-------------------------------------| 
+| Alice | GKE | val-0-workshop.4c621a00-2099-45c8-b50c-f06f95c0bcf3.com. | 
+| Alice | GKE | val-1-workshop.4c621a00-2099-45c8-b50c-f06f95c0bcf3.com. | 
+| Bob   | EKS | validator2.autonity.online |
+| Bob   | EKS | validator3.autonity.online |
+| Network operator | `genesis.yaml` file   | |
+
+## Step 1
+* Actor: `Network operator`
+* Actions:
+  * Generate own eth keys and addresses for `Governance Operator` and receive `eth` address for `Treasury Operator`
+  * Provide to all users the same `genesis.yaml` file. For example: https://github..../genesis.yaml 
+
+## Step 2
+* Actors: `Alice`, `Bob`
+* Actions: Deploy to their own cloud enviroments `autonity` helm chart with `genesis.yaml` options that was provided
+by `Network operator` in a [Step 1](##Step 1) for each `Autonity nodes`:
+
+
+## For environments based on EKS
 * Deploy cluster
-* Deploy workers EC2 instances with Elastic IP
+* Deploy workers EC2 instances with Elastic IPs
 * Add rules to accept `incomming` `tcp`  connections to `dst` port `30303` for aws security groups for this node
 * Add External Public IP that we will use for validator node to k8s node labels
     ```shell script
@@ -19,12 +39,36 @@ Setup 4 independent environments for `validators Nodes`: 2 on `GKE` and 2 in `Am
     helm install --name ap-test --namespace ap-test ./ --set aws.validator_0.ext_ip="X.X.X.X"
     ```
 
-
-## GKE
+## For environments based on GKE
 * Deploy cluster
 * Deploy workers
 * Install
     ```shell script
     helm install --name ap-test --namespace ap-test ./
     ```
+
+## Step 3
+* Actors: `Alice`, `Bob`
+* Actions (for each own node): 
+  * Get enodes for each own Autonity nodes:
+  ```shell script
+  helm status %chartname%
+  ```
+  * Add dns records to share it for other users with format provided below:
   
+  | type | name | value | TTL |
+  |------|-------------------|-------------|---|
+  | A    | validator1.example.com      | 203.0.113.1 | 1 min |
+  | TXT  | validator1.example.com  |p=30303; k=ad840ab412c026b098291f5ab56f923214469c61d4a8be41334c9a00e2dc84a8ff9a5035b3683184ea79902436454a7a00e966de45ff46dbd118e426edd4b2d0| 1 min |
+ 
+## Step 4
+* Actors: `Alice`, `Bob`
+* Actions:
+  * Wait until records will propagated and network start to mine a blocks.
+  * Get 1th mined block hash
+  * Send to other `participants` legal notarised message:
+  ```shell script
+  I am trust the Autonity network that has
+      hash of 1th mined block `???` 
+  if all of peers from this list trust it: [list of dns names of all autonity nodes]
+  ```
