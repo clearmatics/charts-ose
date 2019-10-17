@@ -38,7 +38,7 @@ spec:
       name: p2p
       port: 30303
 {{ if .Values.aws }}
-      nodePort:  30303
+      nodePort: {{ .Values.aws.validator_0.port }}
   type: NodePort
 {{ else }}
       targetPort:  30303

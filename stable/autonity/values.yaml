@@ -37,6 +37,7 @@ rpc:
 #aws:
 #  validator_0:
 #    ext_ip: "X.X.X.X"
+#    port: "30303"
 
 # Options for genesis block. Must be the same for all validator nodes (optional value only for new networks)
 genesis:
