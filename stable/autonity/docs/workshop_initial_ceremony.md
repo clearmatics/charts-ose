@@ -11,6 +11,18 @@ Setup `4` independent environments for `validators Nodes`: `2` on Google Kuberne
 | Bob   | EKS | validator3.autonity.online |
 | Network operator | `genesis.yaml` file   | |
 
+## Requirements
+* `Alice` and `Bob` has:
+  * Separated configured k8s clusters
+  * Installed and configured tools to interact with their clusters: `kubectl` and `helm`
+  * Access to add new DNS records for their domains
+  * Added helm repo
+  ```shell script
+  helm repo add charts-ose.clearmatics.com https://charts-ose.clearmatics.com
+  ```
+* `Network operator`:
+  * Tools to generate eth keys and addresses
+
 ## Step 1
 * Actor: `Network operator`
 * Actions:
@@ -40,7 +52,7 @@ by `Network operator` in a [Step 1](##Step 1) for each `Autonity nodes`:
     name="??" # Name for Autonity node, for example: "val-2"
     ext_ip="X.X.X.X" # Public IP for Autonity node
     port="30303" # Public IP port for Autonity node. Should be different if you deploy several validator nodes to one cluster    
-    helm install --name ${name} --namespace ${name} ./ --set aws.validator_0.ext_ip=${ext_ip},aws.validator_0.port=${port} -f ${genesis}
+    helm install --name ${name} --namespace ${name} charts-ose.clearmatics.com/autonity --set aws.validator_0.ext_ip=${ext_ip},aws.validator_0.port=${port} -f ${genesis}
     ```
 
 ## For environments based on GKE
@@ -50,7 +62,7 @@ by `Network operator` in a [Step 1](##Step 1) for each `Autonity nodes`:
     ```shell script
     genesis="https://raw.githubusercontent.com/clearmatics/charts-ose/master/stable/autonity/values.yaml"
     name="???" # Name for Autonity node, for example: "val-2"
-    helm install --name ${name} --namespace ${name} ./ -f ${genesis}
+    helm install --name ${name} --namespace ${name} charts-ose.clearmatics.com/autonity -f ${genesis}
     ```
 
 ## Step 3
