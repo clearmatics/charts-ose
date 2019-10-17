@@ -1,4 +1,4 @@
-# Workshop
+# Initial ceremony
 
 Setup `4` independent environments for `validators Nodes`: `2` on Google Kubernetes Engine (`GKE`) and `2` in Amazon `EKS`
 
@@ -15,7 +15,7 @@ Setup `4` independent environments for `validators Nodes`: `2` on Google Kuberne
 * Actor: `Network operator`
 * Actions:
   * Generate own eth keys and addresses for `Governance Operator` and receive `eth` address for `Treasury Operator`
-  * Provide to all users the same `genesis.yaml` file. For example: https://raw.githubusercontent.com/clearmatics/charts-ose/autonity/stable/autonity/values.yaml
+  * Provide to all users the same `genesis.yaml` file. For example: https://raw.githubusercontent.com/clearmatics/charts-ose/master/stable/autonity/values.yaml
 
 ## Step 2
 * Actors: `Alice`, `Bob`
@@ -36,7 +36,7 @@ by `Network operator` in a [Step 1](##Step 1) for each `Autonity nodes`:
     ```
 * Install
     ```shell script
-    genesis="https://raw.githubusercontent.com/clearmatics/charts-ose/autonity/stable/autonity/values.yaml"
+    genesis="https://raw.githubusercontent.com/clearmatics/charts-ose/master/stable/autonity/values.yaml"
     name="??" # Name for Autonity node, for example: "val-2"
     ext_ip="X.X.X.X" # Public IP for Autonity node
     port="30303" # Public IP port for Autonity node. Should be different if you deploy several validator nodes to one cluster    
@@ -48,7 +48,7 @@ by `Network operator` in a [Step 1](##Step 1) for each `Autonity nodes`:
 * Deploy workers
 * Install
     ```shell script
-    genesis="https://raw.githubusercontent.com/clearmatics/charts-ose/autonity/stable/autonity/values.yaml"
+    genesis="https://raw.githubusercontent.com/clearmatics/charts-ose/master/stable/autonity/values.yaml"
     name="???" # Name for Autonity node, for example: "val-2"
     helm install --name ${name} --namespace ${name} ./ -f ${genesis}
     ```
