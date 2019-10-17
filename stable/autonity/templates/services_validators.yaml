@@ -36,12 +36,13 @@ spec:
   ports:
     - protocol: TCP
       name: p2p
-      port: 30303
+      targetPort:  30303
 {{ if .Values.aws }}
+      port: {{ .Values.aws.validator_0.port }}
       nodePort: {{ .Values.aws.validator_0.port }}
   type: NodePort
 {{ else }}
-      targetPort:  30303
+      port: 30303
   type: LoadBalancer
 {{ end }}
   selector:
