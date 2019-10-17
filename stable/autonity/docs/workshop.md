@@ -15,7 +15,7 @@ Setup `4` independent environments for `validators Nodes`: `2` on Google Kuberne
 * Actor: `Network operator`
 * Actions:
   * Generate own eth keys and addresses for `Governance Operator` and receive `eth` address for `Treasury Operator`
-  * Provide to all users the same `genesis.yaml` file. For example: https://github..../genesis.yaml 
+  * Provide to all users the same `genesis.yaml` file. For example: https://raw.githubusercontent.com/clearmatics/charts-ose/autonity/stable/autonity/values.yaml
 
 ## Step 2
 * Actors: `Alice`, `Bob`
@@ -36,7 +36,10 @@ by `Network operator` in a [Step 1](##Step 1) for each `Autonity nodes`:
     ```
 * Install
     ```shell script
-    helm install --name ap-test --namespace ap-test ./ --set aws.validator_0.ext_ip="X.X.X.X"
+    genesis="https://raw.githubusercontent.com/clearmatics/charts-ose/autonity/stable/autonity/values.yaml"
+    name="??" # Name for Autonity node, for example: "val-2"
+    ext_ip="X.X.X.X" # Public IP for Autonity node 
+    helm install --name ${name} --namespace ${name} ./ --set aws.validator_0.ext_ip=${ext_ip} -f ${genesis}
     ```
 
 ## For environments based on GKE
@@ -44,7 +47,9 @@ by `Network operator` in a [Step 1](##Step 1) for each `Autonity nodes`:
 * Deploy workers
 * Install
     ```shell script
-    helm install --name ap-test --namespace ap-test ./
+    genesis="https://raw.githubusercontent.com/clearmatics/charts-ose/autonity/stable/autonity/values.yaml"
+    name="???" # Name for Autonity node, for example: "val-2"
+    helm install --name ${name} --namespace ${name} ./ -f ${genesis}
     ```
 
 ## Step 3
