@@ -59,8 +59,8 @@ by `Network operator` in a [Initial ceremony workshop](./workshop_initial_ceremo
      ```
      * Create and send transaction using metamask GUI
        * to: `Treasure Operator` address
-       * amount: `???` eth
-       * fee::  `???` eth
+       * amount: `10000000000000000000000000000` eth
+       * fee::  `100000000000000` eth
 
 ## Step 6
 * Actors: `Governance Operator`
