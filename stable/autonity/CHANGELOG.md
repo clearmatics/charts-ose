@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Workshop to join new node
 ### Updated
 - Workshop for initial ceremony
+- Move out genesis.yaml to separated file
+- Fixed key error in genesis `governanceOperator` to --> `operator`
 
 ## [0.0.3] - 2019-10-21
 ### Changed
