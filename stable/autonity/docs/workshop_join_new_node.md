@@ -18,7 +18,7 @@ Deploy new Autonity node client and join to existent network that was deployed a
 ## Step 2
 * Actors: `Alice`
 * Actions: Deploy to their own cloud enviroments `autonity` helm chart with `genesis.yaml` options that was provided
-by `Network operator` in a [Initial ceremony workshop#Step 5](./workshop_initial_ceremony.md##Step 5):
+by `Network operator` in a [Initial ceremony workshop](./workshop_initial_ceremony.md) `Step 5`
 
 ## For environments based on GKE
 * Deploy cluster (if need)
