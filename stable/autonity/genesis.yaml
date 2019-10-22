@@ -21,10 +21,10 @@ genesis:
       minGasPrice: 10000000000000
       operator: '0xae223655126e514C9C80096d99765A98547247D3'
       users:
-      - enode: fqdn://validator0.autonity.online
+      - enode: fqdn://val-0-workshop.4c621a00-2099-45c8-b50c-f06f95c0bcf3.com
         type: validator
         stake: 50000
-      - enode: fqdn://validator1.autonity.online
+      - enode: fqdn://val-1-workshop.4c621a00-2099-45c8-b50c-f06f95c0bcf3.com
         type: validator
         stake: 50000
       - enode: fqdn://validator2.autonity.online
