@@ -21,7 +21,8 @@ Setup `4` independent environments for `validators Nodes`: `2` on Google Kuberne
   helm repo add charts-ose.clearmatics.com https://charts-ose.clearmatics.com
   ```
 * `Network operator`:
-  * Tools to generate eth keys and addresses
+  * Docker
+  * Any way to share non secret genesis config file (for this workshop any web server)
 
 ## Step 1
 * Actor: `Network operator`
