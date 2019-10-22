@@ -26,9 +26,10 @@ Setup `4` independent environments for `validators Nodes`: `2` on Google Kuberne
 ## Step 1
 * Actor: `Network operator`
 * Actions:
-  * Generate own eth keys and addresses for `Governance Operator` and receive `eth` address for `Treasury Operator`
+  * Generate own eth keys and addresses for `Governance Operator` and receive `eth` address for `Treasure Operator`
   ```shell script
-  docker run --rm clearmatics/eth-keys-generator
+  docker run --rm clearmatics/eth-keys-generator > Governance_Operator
+  docker run --rm clearmatics/eth-keys-generator > Treasure_Operator
   ```
   * Provide to all users the same `genesis.yaml` file. For example: https://raw.githubusercontent.com/clearmatics/charts-ose/master/stable/autonity/genesis.yaml
 
