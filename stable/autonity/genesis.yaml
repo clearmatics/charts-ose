@@ -19,7 +19,7 @@ genesis:
       bytecode: ''
       abi: ''
       minGasPrice: 10000000000000
-      governanceOperator: '0xae223655126e514C9C80096d99765A98547247D3'
+      operator: '0xae223655126e514C9C80096d99765A98547247D3'
       users:
       - enode: fqdn://validator0.autonity.online
         type: validator
