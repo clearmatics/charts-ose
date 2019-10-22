@@ -9,7 +9,7 @@ Setup `4` independent environments for `validators Nodes`: `2` on Google Kuberne
 | Alice | GKE | val-1-workshop.4c621a00-2099-45c8-b50c-f06f95c0bcf3.com. | 
 | Bob   | EKS | validator2.autonity.online |
 | Bob   | EKS | validator3.autonity.online |
-| Network operator | `genesis.yaml` file   | |
+| Network operator | GKE | operator0.autonity.online |
 
 ## Requirements
 * `Alice` and `Bob` has:
@@ -30,10 +30,10 @@ Setup `4` independent environments for `validators Nodes`: `2` on Google Kuberne
   ```shell script
   docker run --rm clearmatics/eth-keys-generator
   ```
-  * Provide to all users the same `genesis.yaml` file. For example: https://raw.githubusercontent.com/clearmatics/charts-ose/master/stable/autonity/values.yaml
+  * Provide to all users the same `genesis.yaml` file. For example: https://raw.githubusercontent.com/clearmatics/charts-ose/master/stable/autonity/genesis.yaml
 
 ## Step 2
-* Actors: `Alice`, `Bob`
+* Actors: `Alice`, `Bob`, `Network operator`
 * Actions: Deploy to their own cloud enviroments `autonity` helm chart with `genesis.yaml` options that was provided
 by `Network operator` in a [Step 1](##Step 1) for each `Autonity nodes`:
 
@@ -51,7 +51,7 @@ by `Network operator` in a [Step 1](##Step 1) for each `Autonity nodes`:
     ```
 * Install
     ```shell script
-    genesis="https://raw.githubusercontent.com/clearmatics/charts-ose/master/stable/autonity/values.yaml"
+    genesis="https://raw.githubusercontent.com/clearmatics/charts-ose/master/stable/autonity/genesis.yaml"
     name="??" # Name for Autonity node, for example: "val-2"
     ext_ip="X.X.X.X" # Public IP for Autonity node
     port="30303" # Public IP port for Autonity node. Should be different if you deploy several validator nodes to one cluster    
@@ -63,7 +63,7 @@ by `Network operator` in a [Step 1](##Step 1) for each `Autonity nodes`:
 * Deploy workers
 * Install
     ```shell script
-    genesis="https://raw.githubusercontent.com/clearmatics/charts-ose/master/stable/autonity/values.yaml"
+    genesis="https://raw.githubusercontent.com/clearmatics/charts-ose/master/stable/autonity/genesis.yaml"
     name="???" # Name for Autonity node, for example: "val-2"
     helm install --name ${name} --namespace ${name} charts-ose.clearmatics.com/autonity -f ${genesis}
     ```
@@ -97,3 +97,7 @@ by `Network operator` in a [Step 1](##Step 1) for each `Autonity nodes`:
 ## Step 5
 * Actor: `Network operator`
 * Actions: Get from AFNC new `genesis.yaml` with resolved `enode`s using helm helpers and replace previous `genesis.yaml` with `fqdn`
+
+## Step 6
+* Actor:  `Alice`, `Bob`, `Network operator`
+* Actions: run `helm update` with new `genesis.yaml` with resolved `enode`s
