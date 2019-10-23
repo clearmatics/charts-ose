@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `tendermint` to API
 ### Updated
 - Fixed wrong key for `operator` in genesis.json
+- requirements to `helm` > v2.15.0
 
 ## [1.5.2] - 2019-09-30
 ### Updated
