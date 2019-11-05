@@ -37,19 +37,19 @@ data:
               "abi": ""
               },
       {{end}}
-            "chainId": {{ .Values.chainid }},
+            "chainId": "{{ .Values.chainid }}",
             "autonityContract": {
                 "deployer": "0x0000000000000000000000000000000000000002",
                 "bytecode": "",
                 "abi": "",
-                "minGasPrice": 0,
+                "minGasPrice": "{{ .Values.mingasprice }}",
                 "operator": "???",
                 "users": []
             }
          },
         "nonce": "0x0",
         "timestamp": "0x0",
-        "gasLimit": "0xffffffff",
+        "gasLimit": "{{ .Values.gaslimit }}",
         "difficulty": "0x1",
         "coinbase": "0x0000000000000000000000000000000000000000",
         "number": "0x0",
