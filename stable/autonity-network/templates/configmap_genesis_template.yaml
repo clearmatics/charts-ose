@@ -37,7 +37,7 @@ data:
               "abi": ""
               },
       {{end}}
-            "chainId": "{{ .Values.chainid }}",
+            "chainId": {{ .Values.chainid }},
             "autonityContract": {
                 "deployer": "0x0000000000000000000000000000000000000002",
                 "bytecode": "",
