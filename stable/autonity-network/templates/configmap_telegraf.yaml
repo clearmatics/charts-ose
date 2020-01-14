@@ -1,4 +1,5 @@
 ---
+{{ if .Values.telegraf }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -7,7 +8,8 @@ metadata:
 data:
   conf: |+
     [global_tags]
-      env = "$ENV"
+      networkid = "$NETWORKID"
+      clent_name = "$CLIENT_NAME"
     [agent]
       round_interval = true
       metric_batch_size = 1000
@@ -24,7 +26,8 @@ data:
     [[inputs.prometheus]]
       urls = ["http://127.0.0.1:6060/debug/metrics/prometheus"]
     [[outputs.influxdb_v2]]
-      urls = ["https://eu-central-1-1.aws.cloud2.influxdata.com"]
-      token = ""
-      organization = "aleksandr.poliakov@clearmatics.com"
-      bucket = "aleksandr.poliakov's Bucket"
+      urls = ["{{ .Values.telegraf.urls }}"]
+      token = "{{ .Values.telegraf.token }}"
+      organization = "{{ .Values.telegraf.organization }}"
+      bucket = "{{ .Values.telegraf.bucket }}"
+{{ end }}
