@@ -1,0 +1,11 @@
+---
+name: elasticloud-operator
+version: 0.0.1
+kubeVersion: ">=1.10.0-0"
+description: Deploy elastic cloud operator and services
+keywords:
+- elasticsearch
+- kibana
+maintainers:
+- name: Scarby
+  email: Adam.Scarborough@clearmatics.com

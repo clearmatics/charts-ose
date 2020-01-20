@@ -1,0 +1,30 @@
+---
+elasticsearch:
+  version: 7.5.0
+  node:
+    count: 3
+    master: true
+    data: true
+    ingest: true
+    allow_mmap: true
+  storage:
+    enabled: true
+    size: '10Gi'
+    class:
+      name: 'default'
+      create: false
+      parameters: #this will need to be customised for cloud providers other than gce
+        type: gc-ssd
+  service:
+    type: 'LoadBalancer'
+    sourceRange: {}
+
+tls:
+  enabled: false
+  secretName: ''
+
+kibana:
+  node:
+    memory: 1Gi
+    cpu: 1
+    count: 3

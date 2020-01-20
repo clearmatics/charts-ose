@@ -1,0 +1,31 @@
+
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: kibana-sample
+spec:
+  version: 7.5.0
+  count: {{ .Values.kibana.node.count }}
+  elasticsearchRef:
+    name: {{ .Release.Name }}
+  http:
+    service:
+      spec:
+        type: LoadBalancer
+    tls:
+      certificate:
+         secretName: .Values.tls.secretName
+  podTemplate:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kibana
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/managed-by: {{ .Release.Service }}
+        component: kibana
+    spec:
+      containers:
+      - name: kibana
+        resources:
+          limits:
+            memory: {{ .Values.kibana.node.memory }}
+            cpu: {{ .Values.kibana.node.cpu }}

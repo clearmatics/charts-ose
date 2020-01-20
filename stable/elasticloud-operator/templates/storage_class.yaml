@@ -1,0 +1,16 @@
+{{- if .Values.elasticsearch.storage.class.create }}
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: {{ .Values.elasticsearch.storage.class.name }}
+  annotations:
+    storageclass.kubernetes.io/is-default-class: false
+provisioner: {{ .Values.storage.provisioner}}
+{{- with .Values.elasticsearch.storage.paremeters }}
+parameters:
+  {{- toYaml . | nindent 2 }}
+{{- end }}
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+{{- end }}

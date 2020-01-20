@@ -1,0 +1,36 @@
+---
+apiVersion: 'elasticsearch.k8s.elastic.co/v1'
+kind: Elasticsearch
+metadata:
+  name: {{.Release.Name}}
+  namespace: {{.Release.Namespace}}
+spec:
+  version: {{.Values.elasticsearch.version}}
+  nodeSets:
+    - name: {{.Release.Name}}
+      count: {{.Values.elasticsearch.node.count}}
+      config:
+        node.master: {{.Values.elasticsearch.node.master}}
+        node.data: {{.Values.elasticsearch.node.data}}
+        node.ingest: {{.Values.elasticsearch.node.ingest}}
+        node.store.allow_mmap: {{.Values.elasticsearch.node.allow_mmap}}
+      volumeClaimTemplates:
+        - metadata:
+            name: {{.Release.Name}}
+            namespace: {{.Release.Namespace}}
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: {{.Values.elasticsearch.storage.size}}
+            storageClassName: {{.Values.elasticsearch.storage.class.name}}
+  http:
+    service:
+      spec:
+        # expose this cluster Service with a LoadBalancer
+        type: {{.Values.elasticsearch.service.type}}
+    tls:
+      certificate:
+        # provide your own certificate
+        secretName: {{.Values.tls.secretName}}
