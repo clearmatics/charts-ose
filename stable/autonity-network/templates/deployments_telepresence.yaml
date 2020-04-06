@@ -8,6 +8,9 @@ metadata:
   labels:
     app: telepresence
 spec:
+  selector:
+    matchLabels:
+        app: telepresence
   strategy:
     type: Recreate
   selector:

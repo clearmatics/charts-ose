@@ -25,6 +25,9 @@ metadata:
   name: validator-{{ $i }}
   namespace: {{ $namespace }}
 spec:
+  selector:
+    matchLabels:
+        app: validator-{{ $i }}
   strategy:
     type: Recreate
   template:
