@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Up prometheus chart to 11.0.4
 - Up grafana chart to 5.0.11
 - Remove deprecated validator-dapp
+- kubeVersion up to >=1.15.11-0
 
 ## [1.0.14] - 2019-11-15
 ### Changed
